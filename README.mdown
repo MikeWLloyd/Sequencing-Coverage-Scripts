@@ -7,7 +7,7 @@ Scripts for use in calculating sequencing coverage for Trinity contigs for multi
 1. Phyluce must be installed, see info pages on the package. 
 2. Bowtie2 must be installed (homebrew will work here: 'brew install bowtie2')
 3. GNU grep must be installed ('brew install grep' will install ggrep, which is currently hard coded into the contig_coverage.py script...change the code for your flavor of GNU grep). 
-3. Both scripts require a configuration file containing names of samples to process. No header is required. (see [example](https://github.com/BioNrd/Sequencing-Coverage-Scripts/blob/master/config_file_example.txt)) 
+3. Both scripts require a configuration file containing names of samples to process. No header is required. ([example](https://github.com/BioNrd/Sequencing-Coverage-Scripts/blob/master/config_file_example.txt)) 
 4. assembly_coverage.py requires: 
  - Directory from illumiprocessor script step (typically called something like 'uce-clean')
  - Directory of Trinity assemblies.
