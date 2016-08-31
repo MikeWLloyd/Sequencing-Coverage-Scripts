@@ -1,0 +1,37 @@
+## Supplimental scripts to the [Phyluce](https://github.com/faircloth-lab/phyluce) package for calculating sequencing coverage of loci and [Trinity](https://github.com/trinityrnaseq/trinityrnaseq/wiki) contigs using [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
+
+
+
+Scripts for use in calculating sequencing coverage for Trinity contigs for multiple samples, and UCE loci (or other fasta formatted files). 
+
+1. Phyluce must be installed, see info pages on the package. 
+2. Bowtie2 must be installed (homebrew will work here: 'brew install bowtie2')
+3. GNU grep must be installed ('brew install grep' will install ggrep, which is currently hard coded into the contig_coverage.py script...change the code for your flavor of GNU grep). 
+3. Both scripts require a configuration file containing names of samples to process. No header is required. (see [example](examplefile.html)) 
+4. assembly_coverage.py requires: 
+ - Directory from illumiprocessor script step (typically called something like 'uce-clean')
+ - Directory of Trinity assemblies.
+ 	- This directory contains subdirectories named after the sample names, where each directory contains a file called 'contigs.fasta' containing the assemblies. (e.g., ./Trinity_Assemblies/[TAXON1]/contigs.fasta)
+ 	  - NOTE: After the script is run, all files in the directory EXCEPT contigs.fasta will be removed. This prevents the SAM and BAM files hangning taking up too much disk space while procesessing many samples at a time. 
+5. contig_coverage.py requires:
+ - Directory from illumiprocessor script step (typically called something like 'uce-clean')
+ - Fasta file concatenated from loci files generated in subsequent Phyluce script steps (e.g., phyluce_assembly_get_fastas_from_match_counts; phyluce_align_seqcap_align)
+     - NOTE: If using post alignment files, the alignment characters must be stripped from the fasta file.
+
+### Example calls: 
+    python assembly_coverage.py --rawreads ../path_to/uce-clean/ --input ../path_to/trinity_assembly/ --output <output_directory> --config <config_file> --threads <#CPUs>
+
+    python contig_coverage.py --rawreads ../path_to/uce-clean/ --input <cleaned_concat.fasta> --output <output_directory> --config <config_file> --threads <#CPUs>
+
+### Output: 
+Three files are generated for each sample: 
+1. [SAMPLENAME]-smds.coverage.per.locus
+ - Contains raw histogram output from [bedtools genomecov](http://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html)
+2. [SAMPLENAME]-smds.coverage.per.locus.summary
+ - Contains per locus average coverage
+3. [SAMPLENAME]-smds.per.base.coverage
+ - Contains a per base coverage, calculated using the -d flag in [bedtools genomecov](http://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html)
+
+Scripts rely heavily on inspiration and code from [CONCOCT](https://github.com/BinPro/CONCOCT/blob/master/scripts/map-bowtie2-markduplicates.sh) and [Phyluce](https://github.com/faircloth-lab/phyluce) used under open source licenses:
+[License A](https://github.com/BinPro/CONCOCT/blob/master/LICENSE.txt),
+[License B](https://github.com/faircloth-lab/phyluce/blob/master/LICENSE.txt)
