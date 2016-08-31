@@ -24,7 +24,8 @@ Scripts for use in calculating sequencing coverage for Trinity contigs for multi
     python contig_coverage.py --rawreads ../path_to/uce-clean/ --input <cleaned_concat.fasta> --output <output_directory> --config <config_file> --threads <#CPUs>
 
 ### Output: 
-Three files are generated for each sample: 
+Three files are generated for each sample:
+
 1. [SAMPLENAME]-smds.coverage.per.locus
  - Contains raw histogram output from [bedtools genomecov](http://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html)
 2. [SAMPLENAME]-smds.coverage.per.locus.summary
