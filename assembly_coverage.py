@@ -128,9 +128,9 @@ for line in f:
     os.popen('bedtools genomecov -d -ibam  '+file_start+'contigs.fasta-smds.bam > \''+args.output+'/'+line+'-smds.per.base.coverage\'').read()
     
     #per locus coverage
-    os.popen('bedtools genomecov -ibam '+file_start+'contigs.fasta-smds.bam > \''+args.output+'/'+line+'-smds.coverage.per.locus\'').read()
+    os.popen('bedtools genomecov -ibam '+file_start+'contigs.fasta-smds.bam > \''+args.output+'/'+line+'-smds.coverage.per.contig\'').read()
 
-    COMMAND = "awk 'BEGIN {pc=\"\"} {c=$1; if (c == pc) {cov=cov+$2*$5;} else {print pc,cov;cov=$2*$5;pc=c}} END {print pc,cov}' "+args.output+"/"+line+"-smds.coverage.per.locus | tail -n +2 > \'"+args.output+"/"+line+"-smds.coverage.per.locus.summary\'"
+    COMMAND = "awk 'BEGIN {pc=\"\"} {c=$1; if (c == pc) {cov=cov+$2*$5;} else {print pc,cov;cov=$2*$5;pc=c}} END {print pc,cov}' "+args.output+"/"+line+"-smds.coverage.per.contig | tail -n +2 > \'"+args.output+"/"+line+"-smds.coverage.per.contig.summary\'"
     subprocess.call(COMMAND, shell=True, stdout=FNULL, stderr=subprocess.STDOUT)
 
     #cleaning up the directory, because we don't need it anymore. 
