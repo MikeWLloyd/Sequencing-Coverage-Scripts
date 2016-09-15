@@ -1,0 +1,14 @@
+### BREW INSTALL GNU GREP. Only need to do this once. This will install ggrep which is hard coded into the script for the moment.
+brew tap homebrew/dupes; brew install grep
+
+#Convert to fasta format. Pick whichever step works best...I think prior to GBLOCKS might be best...but not sure and needs testing. 
+phyluce_align_convert_one_align_to_another --alignments mafft-nexus-70per-taxa/ --output ../../Contig_Coverage_Script/mafft-fasta-70per-gblock --input-format nexus --output-format fasta --log-path ../../Contig_Coverage_Script/log/
+
+#combine the fasta files from within the directory of fasta files
+cat * > ../combined.fasta
+
+#remove linebreaks in fasta file
+awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);}  END {printf("\n");}' < combined.fasta > combined_singleline.fasta
+
+#remove gaps and ? from files (need files in unaligned format)
+sed 's/[?-]//g' combined_singleline.fasta > cleaned_combined.fasta

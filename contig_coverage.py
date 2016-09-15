@@ -85,7 +85,7 @@ for line in f:
     
     # Index reference, Burrows-Wheeler Transform
     print 'Building Bowtie2 reference index'
-    COMMAND='bowtie2-build -f --quiet --threads '+args.threads+' '+file_start+'_grep.fasta '+file_start+'_index'
+    COMMAND='bowtie2-build -f --quiet '+file_start+'_grep.fasta '+file_start+'_index'
     subprocess.call(COMMAND, shell=True, stdout=FNULL, stderr=subprocess.STDOUT)
 
     # Align Paired end and bam it
