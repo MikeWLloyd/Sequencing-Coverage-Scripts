@@ -1,5 +1,9 @@
 #https://github.com/BinPro/CONCOCT/blob/master/scripts/map-bowtie2-markduplicates.sh
 #https://github.com/faircloth-lab/phyluce
+
+# Michael W. Lloyd
+# 15 Sept 2016.
+
 import os
 import subprocess
 import shutil
