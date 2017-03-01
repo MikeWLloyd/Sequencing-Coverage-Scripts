@@ -16,7 +16,7 @@ Scripts for use in calculating sequencing coverage for Trinity contigs for multi
 5. contig_coverage.py requires:
  - Directory from illumiprocessor script step (typically called something like 'uce-clean')
  - Fasta file concatenated from loci files generated in subsequent Phyluce script steps (e.g., phyluce_assembly_get_fastas_from_match_counts; phyluce_align_seqcap_align)
-     - NOTE: If using post alignment files, the alignment characters must be stripped from the fasta file.
+     - NOTE: If using post alignment files, the gap characters must be stripped from the fasta file.
 
 ### Example calls: 
     python assembly_coverage.py --rawreads ../path_to/uce-clean/ --input ../path_to/trinity_assembly/ --output <output_directory> --config <config_file> --threads <#CPUs>
