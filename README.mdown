@@ -12,7 +12,7 @@ Scripts for use in calculating sequencing coverage for Trinity contigs for multi
  - Directory from illumiprocessor script step (typically called something like 'uce-clean')
  - Directory of Trinity assemblies.
  	- This directory contains subdirectories named after the sample names, where each directory contains a file called 'contigs.fasta' containing the assemblies. (e.g., ./Trinity_Assemblies/[TAXON1]/contigs.fasta)
- 	  - NOTE: After the script is run, all files in the directory EXCEPT contigs.fasta will be removed. This prevents the SAM and BAM files hangning taking up too much disk space while procesessing many samples at a time. 
+ 	  - NOTE: After the script is run, all files in the directory EXCEPT contigs.fasta will be removed. This prevents the SAM and BAM files taking up too much disk space while procesessing many samples at a time. 
 5. contig_coverage.py requires:
  - Directory from illumiprocessor script step (typically called something like 'uce-clean')
  - Fasta file concatenated from loci files generated in subsequent Phyluce script steps (e.g., phyluce_assembly_get_fastas_from_match_counts; phyluce_align_seqcap_align)
