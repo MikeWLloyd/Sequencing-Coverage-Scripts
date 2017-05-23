@@ -116,8 +116,7 @@ for line in f:
         "QUIET=TRUE",
     ]
     print 'Marking Duplicates for '+line
-    proc = subprocess.Popen(cmd, stdout=FNULL, stderr=subprocess.STDOUT)
-    proc.communicate()
+    subprocess.call(cmd, stdout=FNULL, stderr=subprocess.STDOUT)
 
     #sort and index the duplicate mark-up
     os.popen('samtools sort '+file_start+'contigs.fasta-smd.bam '+file_start+'contigs.fasta-smds').read()
