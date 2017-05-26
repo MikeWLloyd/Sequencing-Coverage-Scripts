@@ -17,6 +17,17 @@ JAVA_PARAMS = get_user_param("java", "mem")
 JAR_PATH = get_user_path("java", "jar")
 FNULL = open(os.devnull, 'w')
 
+try:
+    output = check_output(["ggrep"])
+    returncode = 0
+except:
+    match='grep'
+else:
+    match='ggrep'
+
+
+print match
+
 def get_args():
     """Get arguments from CLI"""
     parser = argparse.ArgumentParser(
@@ -76,7 +87,7 @@ for line in f:
     line = line.rstrip('\n')
     print(line)
     print '-------------'
-    directory='./coverage/'+line+'/'
+    directory=args.output+'/temp/'+line+'/'
     file_start=directory+line
 
     if not os.path.exists(directory):
@@ -85,7 +96,7 @@ for line in f:
         print 'Subdirectory for that taxon exists, which should be OK.'
 
     #grep the file for the taxon name
-    os.popen('ggrep -A1 --no-group-separator '+line+' '+args.input+' > '+file_start+'_grep.fasta').read()
+    os.popen(match+' -A1 --no-group-separator '+line+' '+args.input+' > '+file_start+'_grep.fasta').read()
     
     # Index reference, Burrows-Wheeler Transform
     print 'Building Bowtie2 reference index'
@@ -126,8 +137,7 @@ for line in f:
         "QUIET=TRUE",
     ]
     print 'Marking Duplicates for '+line
-    proc = subprocess.Popen(cmd, stdout=FNULL, stderr=subprocess.STDOUT)
-    proc.communicate()
+    subprocess.call(cmd, stdout=FNULL, stderr=subprocess.STDOUT)
 
     #sort and index the duplicate mark-up
     os.popen('samtools sort '+file_start+'-smd.bam '+file_start+'-smds').read()
@@ -147,4 +157,4 @@ for line in f:
     print 'Successfully calculated coverage for '+line+'. Cleaning up after myself, and moving on.'
     shutil.rmtree(directory)
     print '###########'
-shutil.rmtree('./coverage/')
+shutil.rmtree(args.output+'/temp/')
