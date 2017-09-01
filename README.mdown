@@ -33,6 +33,12 @@ Three files are generated for each sample:
 3. [SAMPLENAME]-smds.per.base.coverage
  - Contains a per base coverage, calculated using the -d flag in [bedtools genomecov](http://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html)
 
-Scripts rely heavily on inspiration and code from [CONCOCT](https://github.com/BinPro/CONCOCT/blob/master/scripts/map-bowtie2-markduplicates.sh) and [Phyluce](https://github.com/faircloth-lab/phyluce) used under open source licenses:
+### Summary Scripts
+Contains R scripts for parsing output, and summarizing things like average coverage per locus, etc. Code is heavily commented to show what it is doing. 
+
+
+
+
+**Scripts rely heavily on inspiration and code from [CONCOCT](https://github.com/BinPro/CONCOCT/blob/master/scripts/map-bowtie2-markduplicates.sh) and [Phyluce](https://github.com/faircloth-lab/phyluce) used under open source licenses:  
 [License A](https://github.com/BinPro/CONCOCT/blob/master/LICENSE.txt),
-[License B](https://github.com/faircloth-lab/phyluce/blob/master/LICENSE.txt)
+[License B](https://github.com/faircloth-lab/phyluce/blob/master/LICENSE.txt)**
