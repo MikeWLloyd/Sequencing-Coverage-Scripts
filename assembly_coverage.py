@@ -157,3 +157,4 @@ for filename in glob.glob(args.output+'/*.summary'):
     base = os.path.basename(filename)
     output_file.write(base.replace('-smds.coverage.per.contig.summary',',')) 
     output_file.write(lastline.replace('genome ','')) 
+    lastline = ''
