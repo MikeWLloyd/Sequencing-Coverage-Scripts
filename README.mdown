@@ -15,8 +15,29 @@ Scripts for use in calculating sequencing coverage for Trinity contigs for multi
  	  - NOTE: After the script is run, all files in the directory EXCEPT contigs.fasta will be removed. This prevents the SAM and BAM files taking up too much disk space while procesessing many samples at a time. 
 5. contig_coverage.py requires:
  - Directory from illumiprocessor script step (typically called something like 'uce-clean')
- - Fasta file concatenated from loci files generated in subsequent Phyluce script steps (e.g., phyluce_assembly_get_fastas_from_match_counts; phyluce_align_seqcap_align)
+ - Fasta file concatenated from loci files generated in subsequent Phyluce script steps (e.g., phyluce_assembly_get_fastas_from_match_counts; phyluce_align_seqcap_align, see notes below)
      - NOTE: If using post alignment files, the gap and other 'alignment' characters must be stripped from the fasta file.
+
+
+#### Converting alignments to concatenated fasta format for script input. For input alignments, slected alignments at a point that makes the most sense to you, perhaps prior to running GBLOCKS, but that is your choice.
+
+>```
+>phyluce_align_convert_one_align_to_another --alignments /path/to/incomplete_matrix/mafft-nexus-gblocks/ --output >/path/to/mafft-fasta-gblocks --input-format nexus --output-format fasta
+>```
+>Combine the fasta files from within the directory of fasta files into a single file
+>```bash
+>cat * > ../combined.fasta
+>```
+>Remove linebreaks in fasta file
+>```bash
+>awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);}  END {printf("\n");}' < combined.fasta > combined_singleline.fasta
+>```
+>Remove gaps and ? from files (need files in unaligned format)
+>```bash
+>sed 's/[?-]//g' combined_singleline.fasta > cleaned_concat.fasta
+>```
+
+
 
 ### Example calls: 
     python assembly_coverage.py --rawreads ../path_to/uce-clean/ --input ../path_to/trinity_assembly/ --output <output_directory> --config <config_file> --threads <#CPUs>
