@@ -21,18 +21,19 @@ Scripts for use in calculating sequencing coverage for Trinity contigs for multi
 
 #### Converting alignments to concatenated fasta format for script input. For input alignments, slected alignments at a point that makes the most sense to you, perhaps prior to running GBLOCKS, but that is your choice.
 
+>Convert from nexus to fasta:
 >```
->phyluce_align_convert_one_align_to_another --alignments /path/to/incomplete_matrix/mafft-nexus-gblocks/ --output >/path/to/mafft-fasta-gblocks --input-format nexus --output-format fasta
+>phyluce_align_convert_one_align_to_another --alignments /path/to/incomplete_matrix/mafft-nexus/ --output /path/to/mafft-fasta --input-format nexus --output-format fasta
 >```
->Combine the fasta files from within the directory of fasta files into a single file
+>Combine the fasta files from within the directory of fasta files into a single file:
 >```bash
 >cat * > ../combined.fasta
 >```
->Remove linebreaks in fasta file
+>Remove linebreaks in fasta file:
 >```bash
 >awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);}  END {printf("\n");}' < combined.fasta > combined_singleline.fasta
 >```
->Remove gaps and ? from files (need files in unaligned format)
+>Remove gaps and inserted ? from files (need files in unaligned format):
 >```bash
 >sed 's/[?-]//g' combined_singleline.fasta > cleaned_concat.fasta
 >```
