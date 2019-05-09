@@ -160,18 +160,3 @@ for line in f:
     print '###########'
 shutil.rmtree(args.output+'/temp/')
 
-#code below here modified from Andrew Gottscho
-output_file = open(args.output+"/Avg_Contig_Sequence_Coverage.csv", "w")
-output_file.write('Individual,Avg_Contig_Sequence_Coverage\n')
-print("Getting Average Coverage From Summary Files")
-
-#Loop through all text files in current directory that end with .summary
-for filename in glob.glob(args.output+'/*.summary'): 
-    file = open(filename, 'r')
-    for line in file:
-        pass
-    lastline = line
-    base = os.path.basename(filename)
-    output_file.write(base.replace('-smds.coverage.per.locus.summary',',')) 
-    output_file.write(lastline.replace('genome ',''))
-    lastline = ''
