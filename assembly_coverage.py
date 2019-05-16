@@ -73,7 +73,7 @@ else:
 for line in f:
     line = line.rstrip('\n')
     print(line)
-    print '-------------'
+    print('-------------')
     #directory='./coverage/'+line+'/'
     file_start=args.input+'/'+line+'/'
    
