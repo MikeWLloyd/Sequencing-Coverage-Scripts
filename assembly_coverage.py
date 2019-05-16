@@ -78,15 +78,15 @@ for line in f:
     file_start=args.input+'/'+line+'/'
    
     # Index reference, Burrows-Wheeler Transform
-    print 'Building Bowtie2 reference index'
+    print('Building Bowtie2 reference index')
     COMMAND='bowtie2-build -f --quiet '+file_start+'contigs.fasta '+file_start+'contigs.fasta_index'
     subprocess.call(COMMAND, shell=True, stdout=FNULL, stderr=subprocess.STDOUT)
 
     # Align Paired end and bam it
-    print 'Mapping reads using Bowtie2'
+    print('Mapping reads using Bowtie2')
     os.popen('bowtie2 -p '+args.threads+' --quiet -x '+file_start+'contigs.fasta_index -1 '+path_to_reads+'/'+line+'/split-adapter-quality-trimmed/'+line+'-READ1.fastq.gz -2 '+path_to_reads+'/'+line+'/split-adapter-quality-trimmed/'+line+'-READ2.fastq.gz -U '+path_to_reads+'/'+line+'/split-adapter-quality-trimmed/'+line+'-READ-singleton.fastq.gz -S '+file_start+'contigs.fasta.sam').read()
 
-    print 'Indexing, sorting, and re-indexing the BAM file'
+    print('Indexing, sorting, and re-indexing the BAM file')
     COMMAND='samtools faidx '+file_start+'contigs.fasta'
     subprocess.call(COMMAND, shell=True, stdout=FNULL, stderr=subprocess.STDOUT)
 
@@ -123,7 +123,7 @@ for line in f:
     os.popen('samtools index '+file_start+'contigs.fasta-smds.bam').read()
 
     #per base coverage
-    print 'Calculating coverages for '+line+' now.'
+    print('Calculating coverages for '+line+' now.')
     os.popen('bedtools genomecov -d -ibam  '+file_start+'contigs.fasta-smds.bam > \''+args.output+'/'+line+'-smds.per.base.coverage\'').read()
     
     #per locus coverage
@@ -133,7 +133,7 @@ for line in f:
     subprocess.call(COMMAND, shell=True, stdout=FNULL, stderr=subprocess.STDOUT)
 
     #cleaning up the directory, because we don't need it anymore. 
-    print 'Successfully calculated coverage for '+line+'. Cleaning up after myself, and moving on.'
+    print('Successfully calculated coverage for '+line+'. Cleaning up after myself, and moving on.')
     
     for CleanUp in glob.glob(file_start+'/*.*'):
         #print CleanUp  
